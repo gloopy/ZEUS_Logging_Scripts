@@ -64,9 +64,9 @@ int main (int argc,char** argv){
 
 
 
-					eccFVector.at(1,1) =  atof(data[0].c_str());
-					eccFVector.at(1,2) =  atof(data[1].c_str());
-					eccFVector.at(1,3) =  atof(data[2].c_str());
+					eccFVector.at(0,0) =  atof(data[0].c_str());
+					eccFVector.at(1,0) =  atof(data[1].c_str());
+					eccFVector.at(2,0) =  atof(data[2].c_str());
 
 						transForm.print();
 
@@ -74,9 +74,9 @@ int main (int argc,char** argv){
 
 					ecuVector = transForm * eccFVector;
 
-					std::cout << ecuVector.at(1,1) << std::endl;
-					std::cout << ecuVector.at(1,2) << std::endl;
-					std::cout << ecuVector.at(1,3) << std::endl;
+					std::cout << ecuVector.at(0,0) << std::endl;
+					std::cout << ecuVector.at(1,0) << std::endl;
+					std::cout << ecuVector.at(2,0) << std::endl;
 
 
 					data.clear();
@@ -100,23 +100,24 @@ int main (int argc,char** argv){
 
 
 }
-//(i,j) ith row jth col //matrix is fucked need to fix
+//(i,j) ith row jth col 
+//colums start at zero I guess nice documention  
 
 	void setMatrix(arma::mat &matrix){
 
 	
 		try{
-		matrix.at(1,1) = -1 * (sin (REFLONG));
-		matrix.at(2,1) = -1 *(cos(REFLONG) * sin(REFLAT));
-		matrix.at(3,1) = (cos(REFLONG)*cos(REFLAT));
+		matrix.at(0,0) = -1.0 * (sin (REFLONG));
+		matrix.at(1,0) = -1.0 * (cos(REFLONG) * sin(REFLAT));
+		matrix.at(2,0) = (cos(REFLONG)*cos(REFLAT));
 
-		matrix.at(1,2) = -1* (std::cos( REFLONG ));
-		matrix.at(2,2) = -1 * (std::sin( REFLONG )  * std::sin(REFLAT) );
-		matrix.at(3,2) =  (sin(REFLONG))*(std::cos(REFLAT));
+		matrix.at(0,1) = -1.0* (std::cos( REFLONG ));
+		matrix.at(1,1) = -1.0 * (std::sin( REFLONG )  * std::sin(REFLAT) );
+		matrix.at(2,1) =  (sin(REFLONG))*(std::cos(REFLAT));
 
-		matrix.at(1,3) = 0;
-		matrix.at(2,3) =   std::cos(REFLAT);
-		matrix.at(3,3) =  std::sin(REFLAT);
+		matrix.at(0,2) =  0;
+		matrix.at(1,2) =  std::cos(REFLAT);
+		matrix.at(2,2) =  std::sin(REFLAT);
 		
 		}catch(const std::logic_error& ex){
 			std::cout << "Out of bounds" << std::endl;
